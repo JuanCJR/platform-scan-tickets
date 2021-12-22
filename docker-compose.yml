@@ -1,0 +1,24 @@
+version: "3.3"
+services:
+  postgres:
+    image: postgres:13
+    environment:
+      - POSTGRES_DB=ticketsdb
+      - POSTGRES_USER=jcjimenez
+      - POSTGRES_PASSWORD=G17Sh3yEOFhW5hne
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgres_data:/var/lib/postgres/data
+  bff-scan-tickets:
+    container_name: bff-scan-tickets
+    build: bff-scan-tickets
+    restart: unless-stopped
+    ports:
+      - 8081:8081
+  fe-scan-tickets:
+    container_name: fe-scan-tickets
+    build: fe-scan-tickets
+    restart: unless-stopped
+    ports:
+      - 8081:8081
