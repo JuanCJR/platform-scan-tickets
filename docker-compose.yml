@@ -12,13 +12,13 @@ services:
       - ./postgres_data:/var/lib/postgres/data
   bff-scan-tickets:
     container_name: bff-scan-tickets
-    build: bff-scan-tickets
+    image: bff-scan-tickets
     restart: unless-stopped
     ports:
       - 8081:8081
   fe-scan-tickets:
     container_name: fe-scan-tickets
-    build: fe-scan-tickets
+    image: fe-scan-tickets
     restart: unless-stopped
     ports:
-      - 8081:8081
+      - 443:443
