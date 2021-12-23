@@ -10,14 +10,21 @@ services:
       - "5432:5432"
     volumes:
       - ./postgres_data:/var/lib/postgres/data
+    healthcheck:
+      test: pg_isready -U jcjimenez -d ticketsdb
+      interval: 5s
+      timeout: 5s
+      retries: 5
   bff-scan-tickets:
     container_name: bff-scan-tickets
-    image: bff-scan-tickets
+    build: ../bff-scan-tickets
     restart: unless-stopped
     ports:
       - 8081:8081
     depends_on:
-      - "postgres"
+      postgres:
+        condition: service_healthy
+    command: sh -c "/wait"
     environment:
       - TYPEORM_CONNECTION=postgres
       - TYPEORM_HOST=postgres
@@ -25,7 +32,7 @@ services:
       - TYPEORM_PASSWORD=G17Sh3yEOFhW5hne
       - TYPEORM_DATABASE=ticketsdb
       - TYPEORM_PORT=5432
-      - TYPEORM_SYNCHRONIZE=true
+      - TYPEORM_SYNCHRONIZE=false
       - TYPEORM_LOGGING=true
       - TYPEORM_ENTITIES=src/**/*entity.ts
       - TYPEORM_MIGRATIONS=src/database/migrations/*.ts
@@ -35,10 +42,9 @@ services:
       - JWT_SECRET=5c4nt1ck3ts
       - EMAIL_SENDER_USER=enterprisetheboys@gmail.com
       - EMAIL_SENDER_PASSWORD=ashley.13
-
   fe-scan-tickets:
     container_name: fe-scan-tickets
-    image: fe-scan-tickets
+    build: ../fe-scan-tickets
     restart: unless-stopped
     ports:
       - 443:443
