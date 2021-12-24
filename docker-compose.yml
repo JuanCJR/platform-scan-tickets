@@ -42,7 +42,7 @@ services:
       - JWT_SECRET=5c4nt1ck3ts
       - EMAIL_SENDER_USER=enterprisetheboys@gmail.com
       - EMAIL_SENDER_PASSWORD=ashley.13
-      - JWT_EXPIRES_IN=10m
+      - JWT_EXPIRES_IN=20m
   fe-scan-tickets:
     container_name: fe-scan-tickets
     build: ../fe-scan-tickets
