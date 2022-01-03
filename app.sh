@@ -3,6 +3,9 @@
 option=$1
 bffVersion=1.0.0
 feVersion=1.0.0
+bkDir='bk'
+dbHost=""
+dbUser=""
 
 build_app () {
 
@@ -39,11 +42,31 @@ case $option in
     "status")
         docker-compose ps
         ;;
+
     "backup")
-        echo "Reespaldando base de datos...";;
-    
+        
+        echo "Respaldando base de datos..."
+        if [ -d "./$bkDir" ]; then
+           echo "Existe dir bk"
+        else
+            mkdir $bkDir
+            chmod 777 $bkDir
+        fi
+
+        cd "./$bkDir"
+        echo "Ingresar datos de conexion a bd"       
+        read -p "Host: " dbHost 
+        read -p "Usuario: " dbUser
+        pg_dump --column-inserts --data-only -U $dbUser -h $dbHost -p 5432 -F t ticketsdb > ticketsdb.tar
+        ;;
+
     "restore")
-        echo "Restaurando base de datos...";;
+        echo "Restaurando base de datos..."
+        cd "./$bkDir"
+        read -p "Host: " dbHost 
+        read -p "Usuario: " dbUser
+        pg_restore -h $dbHost -p 5432 -d ticketsdb -U $dbUser ticketsdb.tar
+        ;;
 
     *) echo  "Parametros incorrectos";;
 esac
