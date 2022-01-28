@@ -23,7 +23,7 @@ services:
     ports:
       - 8082:8082
     depends_on:
-      postgres:
+      postgres_2:
         condition: service_healthy
     command: sh -c "/wait"
     environment:
