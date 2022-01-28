@@ -7,9 +7,9 @@ services:
       - POSTGRES_USER=jcjimenez
       - POSTGRES_PASSWORD=G17Sh3yEOFhW5hne
     ports:
-      - "5432:5432"
+      - "5432:5433"
     volumes:
-      - ./postgres_data:/var/lib/postgresql/data
+      - ./v2_postgres_data:/var/lib/postgresql/data
     healthcheck:
       test: pg_isready -U jcjimenez -d ticketsdb
       interval: 5s
@@ -20,7 +20,7 @@ services:
     image: bff-scan-tickets:1.0.0
     restart: unless-stopped
     ports:
-      - 8081:8081
+      - 8082:8082
     depends_on:
       postgres:
         condition: service_healthy
@@ -31,14 +31,14 @@ services:
       - TYPEORM_USERNAME=jcjimenez
       - TYPEORM_PASSWORD=G17Sh3yEOFhW5hne
       - TYPEORM_DATABASE=ticketsdb
-      - TYPEORM_PORT=5432
+      - TYPEORM_PORT=5433
       - TYPEORM_SYNCHRONIZE=false
       - TYPEORM_LOGGING=true
       - TYPEORM_ENTITIES=src/**/*entity.ts
       - TYPEORM_MIGRATIONS=src/database/migrations/*.ts
       - TYPEORM_MIGRATIONS_DIR=src/database/migrations
       - TYPEORM_MIGRATIONS_TABLE_NAME=migrations
-      - APP_PORT=8081
+      - APP_PORT=8082
       - JWT_SECRET=5c4nt1ck3ts
       - EMAIL_SENDER_USER=enterprisetheboys@gmail.com
       - EMAIL_SENDER_PASSWORD=ashley.13
@@ -48,6 +48,6 @@ services:
     image: fe-scan-tickets:1.0.0
     restart: unless-stopped
     ports:
-      - 443:443
+      - 443:3000
     depends_on:
       - "bff-scan-tickets"
