@@ -16,7 +16,7 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
-  bff-scan-tickets:
+  bff-scan-tickets_2:
     container_name: bff-scan-tickets_2
     image: bff-scan-tickets:2.0.0
     restart: unless-stopped
@@ -44,11 +44,11 @@ services:
       - EMAIL_SENDER_USER=enterprisetheboys@gmail.com
       - EMAIL_SENDER_PASSWORD=ashley.13
       - JWT_EXPIRES_IN=20m
-  fe-scan-tickets:
+  fe-scan-tickets_2:
     container_name: fe-scan-tickets_2
     image: fe-scan-tickets:2.0.0
     restart: unless-stopped
     ports:
       - 443:3000
     depends_on:
-      - "bff-scan-tickets"
+      - "bff-scan-tickets_2"
