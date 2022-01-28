@@ -49,6 +49,6 @@ services:
     image: fe-scan-tickets:2.0.0
     restart: unless-stopped
     ports:
-      - 443:3000
+      - 3000:3000
     depends_on:
       - "bff-scan-tickets_2"
