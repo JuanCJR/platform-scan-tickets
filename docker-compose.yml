@@ -1,14 +1,14 @@
 version: "3.3"
 services:
-  postgres_2:
-    container_name: postgres_bd_2
+  postgres:
+    container_name: postgres
     image: postgres:13
     environment:
-      - POSTGRES_DB=ticketsdb
+      - POSTGRES_DB=ticketsdb_2
       - POSTGRES_USER=jcjimenez
       - POSTGRES_PASSWORD=G17Sh3yEOFhW5hne
     ports:
-      - "5433:5433"
+      - "5432:5432"
     volumes:
       - ./v2_postgres_data:/var/lib/postgresql/data
     healthcheck:
@@ -31,7 +31,7 @@ services:
       - TYPEORM_HOST=postgres
       - TYPEORM_USERNAME=jcjimenez
       - TYPEORM_PASSWORD=G17Sh3yEOFhW5hne
-      - TYPEORM_DATABASE=ticketsdb
+      - TYPEORM_DATABASE=ticketsdb_2
       - TYPEORM_PORT=5433
       - TYPEORM_SYNCHRONIZE=false
       - TYPEORM_LOGGING=true
