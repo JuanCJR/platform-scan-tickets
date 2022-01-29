@@ -1,6 +1,7 @@
 version: "3.3"
 services:
   postgres_2:
+    container_name: postgres_2
     image: postgres:13
     environment:
       - POSTGRES_DB=ticketsdb_2
@@ -31,7 +32,7 @@ services:
       - TYPEORM_USERNAME=jcjimenez
       - TYPEORM_PASSWORD=G17Sh3yEOFhW5hne
       - TYPEORM_DATABASE=ticketsdb_2
-      - TYPEORM_PORT=5433
+      - TYPEORM_PORT=5432
       - TYPEORM_SYNCHRONIZE=false
       - TYPEORM_LOGGING=true
       - TYPEORM_ENTITIES=src/**/*entity.ts
