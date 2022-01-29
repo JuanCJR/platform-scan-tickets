@@ -28,7 +28,7 @@ services:
     command: sh -c "/wait"
     environment:
       - TYPEORM_CONNECTION=postgres
-      - TYPEORM_HOST=postgres
+      - TYPEORM_HOST=postgres_2
       - TYPEORM_USERNAME=jcjimenez
       - TYPEORM_PASSWORD=G17Sh3yEOFhW5hne
       - TYPEORM_DATABASE=ticketsdb
