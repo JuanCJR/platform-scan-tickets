@@ -4,15 +4,15 @@ services:
     container_name: postgres_2
     image: postgres:13
     environment:
-      - POSTGRES_DB=ticketsdb_2
+      - POSTGRES_DB=ticketsdb
       - POSTGRES_USER=jcjimenez
       - POSTGRES_PASSWORD=G17Sh3yEOFhW5hne
     ports:
       - "5433:5432"
     volumes:
-      - ./postgres_data:/var/lib/postgresql/data
+      - ./v2_postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: pg_isready -U jcjimenez -d ticketsdb_2
+      test: pg_isready -U jcjimenez -d ticketsdb
       interval: 5s
       timeout: 5s
       retries: 5
@@ -31,7 +31,7 @@ services:
       - TYPEORM_HOST=postgres
       - TYPEORM_USERNAME=jcjimenez
       - TYPEORM_PASSWORD=G17Sh3yEOFhW5hne
-      - TYPEORM_DATABASE=ticketsdb_2
+      - TYPEORM_DATABASE=ticketsdb
       - TYPEORM_PORT=5432
       - TYPEORM_SYNCHRONIZE=false
       - TYPEORM_LOGGING=true
