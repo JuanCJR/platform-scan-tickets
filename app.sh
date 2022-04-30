@@ -57,7 +57,7 @@ case $option in
     echo "Ingresar datos de conexion a bd"
     read -p "Host: " dbHost
     read -p "Usuario: " dbUser
-    pg_dump --column-inserts --data-only -U $dbUser -h $dbHost -p 5432 -F t ticketsdb >ticketsdb.tar
+    pg_dump --column-inserts --data-only -U $dbUser -h $dbHost -p 5433 -F t ticketsdb >ticketsdb.tar
     ;;
 
 "restore")
@@ -65,7 +65,7 @@ case $option in
     cd "./$bkDir"
     read -p "Host: " dbHost
     read -p "Usuario: " dbUser
-    pg_restore -h $dbHost -p 5432 -d ticketsdb -U $dbUser ticketsdb.tar
+    pg_restore -h $dbHost -p 5433 -d ticketsdb -U $dbUser ticketsdb.tar
     ;;
 
 *) echo "Parametros incorrectos" ;;
